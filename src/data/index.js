@@ -10,7 +10,10 @@ export const skills = [
   {
     id: 2,
     name: 'JavaScript',
-    level: 2,
+    level: 2export default defineConfig({
+  base: '/你的repo名稱/',
+  plugins: [vue()],
+}),
     category: 'Frontend',
     description: 'ES6+ 語法、非同步處理 (Async/Await)、DOM 操作'
   },
@@ -32,7 +35,7 @@ export const skills = [
   {
     id: 5,
     name: 'Figma',
-    level: 2,
+    level: 4,
     category: 'UIUX',
     description: 'UI 介面原型設計、Component 組件庫建立與維護'
   },
@@ -40,20 +43,20 @@ export const skills = [
   {
     id: 6,
     name: 'Photoshop',
-    level: 4,
+    level: 5,
     category: '視覺設計',
     description: '高級影像合成、色彩調整、商業修圖與視覺素材精細處理'
   },
   {
     id: 7,
     name: 'Illustrator',
-    level: 3,
+    level: 4,
     category: '視覺設計',
     description: '向量圖表繪製、視覺 Icon 設計、品牌視覺規範延伸'
   },
   { id: 8, 
     name: 'Clip Studio Paint', 
-    level: 4, 
+    level: 5, 
     category: '視覺設計', 
     description: '數位插畫創作、角色視覺設計、風格分鏡繪製與創意構圖' 
   },
@@ -68,7 +71,7 @@ export const skills = [
   {
     id: 10,
     name: 'Git / GitHub',
-    level: 2,
+    level: 3,
     category: 'Tools',
     description: 'Git 版本控制、Git Flow 分支策略、GitHub Pages 靜態部署'
   },
