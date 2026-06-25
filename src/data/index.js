@@ -7,16 +7,7 @@ export const skills = [
     category: 'Frontend',
     description: 'Vue 3 Composition API、Vue Router 路由管理'
   },
-  {
-    id: 2,
-    name: 'JavaScript',
-    level: 2export default defineConfig({
-  base: '/你的repo名稱/',
-  plugins: [vue()],
-}),
-    category: 'Frontend',
-    description: 'ES6+ 語法、非同步處理 (Async/Await)、DOM 操作'
-  },
+  
   {
     id: 3,
     name: 'CSS / SCSS',
@@ -100,7 +91,7 @@ export const projects = [
     description: '台灣候鳥遷徙城市導覽',
     fullDescription: '專案結構、導入 (Import)、Router、查詢參數 (Query Params)',
     tech: ['Vue 3'],
-    image: '🪽',
+    image: '/img/bird.jpg',
     color: '#f59e0b',
     github: 'https://github.com',
     demo: 'https://demo.example.com',

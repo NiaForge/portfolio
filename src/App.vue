@@ -1,29 +1,13 @@
 <script setup>
-import { ref } from 'vue'
 import { RouterView } from 'vue-router'
 import NavBar from './components/NavBar.vue'
-
-const favorites = ref(new Set())
-
-const toggleFavorite = (id) => {
-  const newSet = new Set(favorites.value)
-  if (newSet.has(id)) {
-    newSet.delete(id)
-  } else {
-    newSet.add(id)
-  }
-  favorites.value = newSet
-}
 </script>
 
 <template>
   <div id="app">
-    <NavBar :favorite-count="favorites.size" />
+    <NavBar />
     <main class="main-content">
-      <RouterView
-        :favorites="favorites"
-        @toggle-favorite="toggleFavorite"
-      />
+      <RouterView/>
     </main>
   </div>
 </template>

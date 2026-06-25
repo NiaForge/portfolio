@@ -1,22 +1,12 @@
 <script setup>
-import { ref } from 'vue'
-
 const props = defineProps({
   project: {
     type: Object,
     required: true
-  },
-  isFavorited: {
-    type: Boolean,
-    default: false
   }
 })
 
-const emit = defineEmits(['toggle-favorite', 'view-detail'])
-
-const handleFavorite = () => {
-  emit('toggle-favorite', props.project.id)
-}
+const emit = defineEmits(['view-detail'])
 
 const handleViewDetail = () => {
   emit('view-detail', props.project.id)
@@ -24,19 +14,18 @@ const handleViewDetail = () => {
 </script>
 
 <template>
-  <div class="project-card" :class="{ favorited: isFavorited }" :style="{ '--color': project.color }">
+  <div class="project-card" :style="{ '--color': project.color }">
     <div class="card-top">
-      <div class="project-emoji">{{ project.emoji || project.image }}</div>
+      <!-- 放入圖片區塊 -->
+      <div class="card-image">
+        <img v-if="project.image.startsWith('/')" :src="project.image" :alt="project.title" />
+        <span v-else class="project-emoji">{{ project.image }}</span>
+      </div>
+
+      <!-- <div class="project-emoji">{{ project.emoji || project.image }}</div> -->
+      
       <div class="card-meta">
         <span class="project-year">{{ project.year }}</span>
-        <button
-          class="favorite-btn"
-          @click="handleFavorite"
-          :class="{ active: isFavorited }"
-          :title="isFavorited ? '取消收藏' : '加入收藏'"
-        >
-          {{ isFavorited ? '❤️' : '🤍' }}
-        </button>
       </div>
     </div>
 
@@ -50,7 +39,7 @@ const handleViewDetail = () => {
     </div>
 
     <div class="card-footer">
-      <span class="likes-count">♥ {{ project.likes + (isFavorited ? 1 : 0) }}</span>
+      <span class="likes-count">♥ {{ project.likes }}</span>
       <button class="view-btn" @click="handleViewDetail">
         查看作品 →
       </button>
@@ -62,8 +51,8 @@ const handleViewDetail = () => {
 
 <style scoped>
 .project-card {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
   padding: 1.8rem;
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
@@ -89,12 +78,11 @@ const handleViewDetail = () => {
 
 .project-card:hover {
   transform: translateY(-6px);
-  border-color: rgba(255,255,255,0.15);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
-.project-card:hover::after,
-.project-card.favorited::after {
+.project-card:hover::after {
   opacity: 1;
 }
 
@@ -123,10 +111,38 @@ const handleViewDetail = () => {
   margin-bottom: 0.4rem;
 }
 
-.project-emoji {
+/* .project-emoji {
   font-size: 2rem;
   line-height: 1;
-  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+} */
+
+.card-image {
+  width: 100%;
+  height: 180px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+  background: rgba(255,255,255,0.05);
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.project-card:hover .card-image img {
+  transform: scale(1.05);
+}
+
+.project-emoji {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 3.5rem;
 }
 
 .card-meta {
@@ -140,27 +156,6 @@ const handleViewDetail = () => {
   font-size: 0.75rem;
   color: #475569;
   font-weight: 500;
-}
-
-.favorite-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.1rem;
-  padding: 0.2rem;
-  border-radius: 6px;
-  transition: transform 0.2s;
-  line-height: 1;
-}
-
-.favorite-btn:hover { transform: scale(1.3); }
-.favorite-btn.active { animation: heartbeat 0.4s ease; }
-
-@keyframes heartbeat {
-  0% { transform: scale(1); }
-  40% { transform: scale(1.4); }
-  70% { transform: scale(0.9); }
-  100% { transform: scale(1); }
 }
 
 .project-title {
@@ -195,8 +190,8 @@ const handleViewDetail = () => {
 }
 
 .tech-tag {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: #94a3b8;
   padding: 0.2rem 0.6rem;
   border-radius: 6px;
@@ -216,7 +211,7 @@ const handleViewDetail = () => {
   align-items: center;
   margin-top: 0.6rem;
   padding-top: 1rem;
-  border-top: 1px solid rgba(255,255,255,0.06);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .likes-count {

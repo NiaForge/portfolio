@@ -2,13 +2,6 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { RouterLink } from 'vue-router'
 
-defineProps({
-  favoriteCount: {
-    type: Number,
-    default: 0
-  }
-})
-
 const menuOpen = ref(false)
 const isScrolled = ref(false)
 
@@ -46,9 +39,6 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
             <span class="link-icon">{{ link.icon }}</span>
             {{ link.label }}
           </RouterLink>
-        </li>
-        <li class="nav-badge" v-if="favoriteCount > 0">
-          <span class="badge">❤️ {{ favoriteCount }}</span>
         </li>
       </ul>
     </div>
@@ -137,21 +127,6 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
 
 .link-icon {
   font-size: 0.85rem;
-}
-
-.badge {
-  background: linear-gradient(135deg, #ec4899, #f43f5e);
-  color: #fff;
-  padding: 0.3rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
 }
 
 .hamburger {

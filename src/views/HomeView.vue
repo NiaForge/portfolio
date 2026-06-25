@@ -6,11 +6,6 @@ import { projects } from '@/data/index.js'
 
 const tags = ['Vue.js', 'JavaScript', 'HTML', 'CSS', 'UI/UX']
 
-const props = defineProps({
-  favorites: { type: Object, default: () => new Set() }
-})
-
-defineEmits(['toggle-favorite'])
 
 const router = useRouter()
 
@@ -68,8 +63,6 @@ const goToDetail = (id) => {
           v-for="project in featuredProjects"
           :key="project.id"
           :project="project"
-          :is-favorited="favorites.has(project.id)"
-          @toggle-favorite="$emit('toggle-favorite', $event)"
           @view-detail="goToDetail"
         />
       </div>
