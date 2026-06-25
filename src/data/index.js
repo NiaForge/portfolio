@@ -77,6 +77,21 @@ export const skills = [
 export const projects = [
   {
     id: 1,
+    title: '清水眷村文化園區',
+    subtitle: 'Weather Dashboard',
+    description: '輸入學生成績資料，自動計算平均與極值、過濾不及格名單，並依分數降序輸出帶有等第標籤的排序陣列。',
+    fullDescription: '運用到function函式、解構賦值&展開運算子、陣列應用',
+    tech: ['HTML', 'CSS', 'JS'],
+    image: '📋',
+    color: '#06b6d4',
+    github: 'https://github.com',
+    demo: 'https://nchu-11503-qingshui-qrt-village.pages.dev/',
+    likes: 0,
+    featured: false,
+    year: 2026,
+  },
+  {
+    id: 2,
     title: '都市尋羽',
     subtitle: 'Task Management App',
     description: '台灣候鳥遷徙城市導覽',
@@ -91,7 +106,7 @@ export const projects = [
     year: 2026,
   },
   {
-    id: 2,
+    id: 3,
     title: '購物車清單',
     subtitle: 'E-Commerce Platform',
     description: '具備新增商品項目、商品數、訂單歷史紀錄功能。',
@@ -105,21 +120,7 @@ export const projects = [
     featured: true,
     year: 2026,
   },
-  {
-    id: 3,
-    title: '成績計算管理系統',
-    subtitle: 'Weather Dashboard',
-    description: '輸入學生成績資料，自動計算平均與極值、過濾不及格名單，並依分數降序輸出帶有等第標籤的排序陣列。',
-    fullDescription: '運用到function函式、解構賦值&展開運算子、陣列應用',
-    tech: ['HTML', 'CSS', 'JS'],
-    image: '📋',
-    color: '#06b6d4',
-    github: 'https://github.com',
-    demo: 'https://demo.example.com',
-    likes: 0,
-    featured: false,
-    year: 2026,
-  },
+  
   {
     id: 4,
     title: '植物收藏展示',

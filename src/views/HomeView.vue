@@ -188,7 +188,7 @@ const goToDetail = (id) => {
   height: 120px;
   border-radius: 50%;
   background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  background-image: url(/src/assets/img/main.jpg);
+  background-image: url(../assets/img/user.webp);
   background-size: cover;
   display: flex;
   align-items: center;
