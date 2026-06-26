@@ -1,26 +1,32 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useRouter, RouterLink } from 'vue-router'
 import ProjectCard from '@/components/ProjectCard.vue'
 import { projects } from '@/data/index.js'
 
 const tags = ['Vue.js', 'JavaScript', 'HTML', 'CSS', 'UI/UX']
+const splineViewerScriptId = 'spline-viewer-script'
+const splineViewerSrc = 'https://unpkg.com/@splinetool/viewer@1.12.98/build/spline-viewer.js'
+const splineSceneUrl = 'https://prod.spline.design/OoOVDF6-bLGyLCaS/scene.splinecode'
 
 
 const router = useRouter()
 
 const featuredProjects = computed(() => projects.filter(p => p.featured))
 
-const stats = [
- { value: '6+', label: '完成專案' },
-  { value: '10+', label: '掌握技術' },
-  { value: '100+', label: '報錯與修復' },
-  { value: '∞', label: '咖啡因' },
-]
-
 const goToDetail = (id) => {
   router.push(`/projects/${id}`)
 }
+
+onMounted(() => {
+  if (document.getElementById(splineViewerScriptId)) return
+
+  const script = document.createElement('script')
+  script.id = splineViewerScriptId
+  script.type = 'module'
+  script.src = splineViewerSrc
+  document.head.appendChild(script)
+})
 </script>
 
 <template>
@@ -45,15 +51,36 @@ const goToDetail = (id) => {
             <RouterLink to="/skills" class="btn btn-outline">技能清單 ⚡</RouterLink>
           </div>
         </div>
+
+        <div class="hero-spline">
+          <spline-viewer
+            :url="splineSceneUrl"
+            title="Spline interactive scene"
+          ></spline-viewer>
+        </div>
       </div>
     </div>
 
-    <div class="home-stats">
-      <div class="stat-card" v-for="stat in stats" :key="stat.label">
-        <span class="stat-number">{{ stat.value }}</span>
-        <span class="stat-label">{{ stat.label }}</span>
+    <section class="home-services">
+      <div class="services-inner">
+        <span class="services-label">// 服務項目</span>
+        <h2 class="services-title">SERVICES</h2>
+        <div class="services-grid">
+          <article class="service-card">
+            <h3>Design & Motion</h3>
+            <p>Figma / Spline / Lottie / Blender</p>
+          </article>
+          <article class="service-card">
+            <h3>Frontend Dev</h3>
+            <p>Vue 3 / JavaScript / HTML5 & CSS3 / Git</p>
+          </article>
+          <article class="service-card">
+            <h3>Soft Skills</h3>
+            <p>跨團隊溝通 / 獨立問題解決 / 團體動態視覺主導</p>
+          </article>
+        </div>
       </div>
-    </div>
+    </section>
 
     <div class="home-featured">
       <span class="section-label">// 精選作品</span>
@@ -75,56 +102,161 @@ const goToDetail = (id) => {
 .home-page {
   display: flex;
   flex-direction: column;
-  gap: 5rem;
+  gap: 3rem;
+  max-width: 1440px;
+  padding-top: 1.25rem;
 }
 
-.home-stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
+.home-hero {
+  min-height: min(800px, calc(100vh - 110px));
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
 
-.stat-card {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 16px;
-  padding: 1.8rem;
-  text-align: center;
-  transition: transform 0.2s;
+.home-featured {
+  position: relative;
 }
 
-.stat-card:hover { transform: translateY(-4px); }
+.home-services {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding: 4.8rem 2rem;
+  background:
+    linear-gradient(135deg, rgba(99, 102, 241, 0.16), transparent 42%),
+    radial-gradient(circle at 82% 22%, rgba(139, 92, 246, 0.18), transparent 32%),
+    #0d0d1a;
+  position: relative;
+  overflow: hidden;
+}
 
-.stat-number {
-  display: block;
-  font-size: 2.5rem;
+.home-services::before {
+  content: '</>';
+  position: absolute;
+  right: 8vw;
+  top: 2.5rem;
+  color: rgba(99, 102, 241, 0.1);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(5rem, 12vw, 10rem);
   font-weight: 800;
-  color: #6366f1;
   line-height: 1;
-  margin-bottom: 0.5rem;
-  letter-spacing: -0.02em;
+  pointer-events: none;
 }
 
-.stat-label {
-  font-size: 0.82rem;
-  color: #64748b;
+.services-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.services-label {
+  display: block;
+  color: #818cf8;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.services-title {
+  color: #f1f5f9;
+  font-size: clamp(2.6rem, 6vw, 4.2rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin: 0 0 2.4rem;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.service-card {
+  min-height: 168px;
+  padding: 1.35rem;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.035);
+  color: #e2e8f0;
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.26);
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card::before {
+  content: 'const service = {';
+  display: block;
+  color: #818cf8;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  margin-bottom: 1.1rem;
+}
+
+.service-card::after {
+  content: '}';
+  position: absolute;
+  right: 1.25rem;
+  bottom: 1rem;
+  color: rgba(129, 140, 248, 0.34);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.service-card h3 {
+  color: #f8fafc;
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.25;
+  margin: 0 0 0.85rem;
+}
+
+.service-card p {
+  color: #94a3b8;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.92rem;
   font-weight: 500;
-  letter-spacing: 0.04em;
+  line-height: 1.7;
+  margin: 0;
 }
 
 .home-section-title {
   font-size: 1.8rem;
   font-weight: 700;
   color: #f1f5f9;
-  margin-bottom: 1.8rem;
+  margin-bottom: 1.5rem;
   letter-spacing: -0.02em;
 }
 
 .featured-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.2rem;
-  margin-bottom: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.8rem;
+}
+
+.home-featured :deep(.project-card) {
+  min-height: 440px;
+  padding: 1.6rem;
+}
+
+.home-featured :deep(.card-image) {
+  height: 230px;
+  border-radius: 14px;
+}
+
+.home-featured :deep(.project-title) {
+  font-size: 1.35rem;
+}
+
+.home-featured :deep(.project-desc) {
+  font-size: 0.9rem;
 }
 
 .view-all-btn {
@@ -136,6 +268,9 @@ const goToDetail = (id) => {
   font-size: 0.95rem;
   transition: all 0.2s;
   gap: 0.3rem;
+  position: absolute;
+  top: 0.15rem;
+  right: 0;
 }
 
 .view-all-btn:hover {
@@ -143,21 +278,20 @@ const goToDetail = (id) => {
   transform: translateX(4px);
 }
 
-@media (max-width: 640px) {
-  .home-stats { grid-template-columns: repeat(2, 1fr); }
-}
-
 .profile-card {
-  display: flex;
-  gap: 3rem;
-  align-items: center;
-  padding: 3rem;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(99, 102, 241, 0.15);
-  border-radius: 24px;
-  backdrop-filter: blur(10px);
+  display: grid;
+  grid-template-columns: minmax(320px, 0.78fr) minmax(520px, 1.22fr);
+  gap: clamp(2rem, 5vw, 5.5rem);
+  align-items: stretch;
+  flex: 1;
+  width: 100%;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  backdrop-filter: none;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .profile-card::before {
@@ -171,8 +305,40 @@ const goToDetail = (id) => {
   pointer-events: none;
 }
 
+.profile-info {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  padding-block: clamp(2rem, 6vw, 5rem);
+}
+
+.hero-spline {
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+  min-height: 560px;
+  height: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  background: transparent;
+  box-shadow: none;
+}
+
+.hero-spline spline-viewer {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 16px;
+  background: transparent;
+}
+
 .avatar-wrapper {
   position: relative;
+  display: none;
   flex-shrink: 0;
 }
 
@@ -308,8 +474,111 @@ const goToDetail = (id) => {
 }
 
 @media (max-width: 640px) {
-  .profile-card { flex-direction: column; text-align: center; padding: 2rem 1.5rem; gap: 1.5rem; }
+  .home-page {
+    gap: 1.6rem;
+    padding: 1.5rem 1.25rem 2.5rem;
+  }
+
+  .home-hero {
+    min-height: 0;
+  }
+
+  .featured-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-featured :deep(.project-card) {
+    min-height: 0;
+  }
+
+  .home-featured :deep(.card-image) {
+    height: 190px;
+  }
+
+  .view-all-btn {
+    position: static;
+    margin-top: 0.2rem;
+  }
+
+  .home-services {
+    padding: 2.2rem 1.25rem;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .services-title {
+    margin-bottom: 1.8rem;
+  }
+
+  .profile-card {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 0;
+    gap: 1.35rem;
+  }
+  .profile-info {
+    padding-block: 0;
+  }
+  .avatar-wrapper {
+    display: block;
+    margin-inline: auto;
+  }
+  .hero-spline { display: none; }
   .profile-name { font-size: 2rem; }
   .profile-tags, .profile-actions { justify-content: center; }
+}
+
+@media (min-width: 641px) and (max-width: 1180px) {
+  .featured-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .home-featured :deep(.card-image) {
+    height: 210px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 767px) {
+  .profile-card {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .profile-info {
+    align-items: center;
+    padding-block: 2rem;
+  }
+
+  .profile-tags,
+  .profile-actions {
+    justify-content: center;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-spline {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1180px) {
+  .profile-card {
+    grid-template-columns: minmax(280px, 0.9fr) minmax(360px, 1.1fr);
+    gap: 2rem;
+  }
+
+  .hero-spline {
+    min-height: 460px;
+  }
+
+  .services-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 </style>
