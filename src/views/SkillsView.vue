@@ -1,101 +1,61 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { onMounted } from 'vue'
 import SkillCard from '@/components/SkillCard.vue'
 import { skills } from '@/data/index.js'
 
-const categories = ['全部', ...new Set(skills.map(s => s.category))]
-const activeCategory = ref('全部')
+const lottieScriptId = 'dotlottie-wc-script'
+const lottieScriptSrc = 'https://unpkg.com/@lottiefiles/dotlottie-wc@0.9.14/dist/dotlottie-wc.js'
 
-const filteredSkills = computed(() => {
-  if (activeCategory.value === '全部') return skills
-  return skills.filter(s => s.category === activeCategory.value)
+onMounted(() => {
+  if (document.getElementById(lottieScriptId)) return
+
+  const script = document.createElement('script')
+  script.id = lottieScriptId
+  script.type = 'module'
+  script.src = lottieScriptSrc
+  document.head.appendChild(script)
 })
 </script>
 
 <template>
-  <div class="page-container">
+  <div class="page-container skills-page">
     <div class="page-header">
-      <span class="section-label">// 我的技能樹</span>
+      <span class="section-label">// Skills</span>
       <h1 class="page-title">技能清單</h1>
-      <p class="page-subtitle">持續學習中的技術棧，數字代表熟悉程度</p>
+      <p class="page-subtitle">整理我目前能投入實作的能力，也保留正在探索的創作方向。</p>
     </div>
 
-    <div class="filter-tabs">
-      <button
-        v-for="cat in categories"
-        :key="cat"
-        class="filter-tab"
-        :class="{ active: activeCategory === cat }"
-        @click="activeCategory = cat"
-      >
-        {{ cat }}
-      </button>
-    </div>
-
-    <TransitionGroup name="skill-list" tag="div" class="skills-grid">
+    <div class="skills-list">
       <SkillCard
-        v-for="skill in filteredSkills"
+        v-for="skill in skills"
         :key="skill.id"
         :skill="skill"
       />
-    </TransitionGroup>
+    </div>
   </div>
 </template>
 
 <style scoped>
+.skills-page {
+  max-width: 1120px;
+}
+
 .page-header {
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 }
 
-.filter-tabs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 2.5rem;
+.page-subtitle {
+  max-width: 560px;
 }
 
-.filter-tab {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.09);
-  color: #64748b;
-  padding: 0.45rem 1rem;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 500;
-  font-family: 'Space Grotesk', sans-serif;
-  transition: all 0.2s;
-}
-
-.filter-tab:hover {
-  color: #e2e8f0;
-  border-color: rgba(255,255,255,0.2);
-}
-
-.filter-tab.active {
-  background: rgba(99, 102, 241, 0.15);
-  border-color: rgba(99, 102, 241, 0.4);
-  color: #a5b4fc;
-}
-
-.skills-grid {
+.skills-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
-.skill-list-enter-active,
-.skill-list-leave-active {
-  transition: all 0.3s ease;
-}
-
-.skill-list-enter-from,
-.skill-list-leave-to {
-  opacity: 0;
-  transform: scale(0.92);
-}
-
-.skill-list-move {
-  transition: transform 0.3s ease;
+@media (max-width: 640px) {
+  .page-header {
+    margin-bottom: 1.5rem;
+  }
 }
 </style>

@@ -1,150 +1,199 @@
 <script setup>
-import { computed } from 'vue'
-
-const props = defineProps({
+defineProps({
   skill: {
     type: Object,
     required: true
   }
 })
-//技能分類
-const categoryColors = {
-  Frontend: '#6366f1',
-  UIUX: '#10b981',
-  視覺設計: '#f59e0b',
-  Tools: '#06b6d4',
-  Design: '#ec4899',
-  media: '#8b5cf6',
-}
-
-const categoryColor = computed(() => categoryColors[props.skill.category] || '#6366f1')
-
-const levelLabel = computed(() => {
-  const labels = ['', '初學者', '基礎', '熟練', '進階', '專家']
-  return labels[props.skill.level]
-})
 </script>
 
 <template>
-  <div class="skill-card" :style="{ '--accent': categoryColor }">
-    <div class="skill-header">
-      <span class="skill-category">{{ skill.category }}</span>
-      <div class="skill-stars">
-        <span
-          v-for="i in 5"
-          :key="i"
-          class="star"
-          :class="{ filled: i <= skill.level }"
-        >★</span>
-      </div>
+  <article class="skill-row">
+    <div class="skill-panel">
+      <h2 class="skill-title">{{ skill.title }}</h2>
+      <p class="skill-desc">{{ skill.description }}</p>
+
+      <ul class="skill-tags" :aria-label="`${skill.title}技能`">
+        <li
+          v-for="tag in skill.tags"
+          :key="tag"
+          class="skill-tag"
+        >
+          {{ tag }}
+        </li>
+      </ul>
     </div>
-    <h3 class="skill-name">{{ skill.name }}</h3>
-    <p class="skill-desc">{{ skill.description }}</p>
-    <div class="skill-bar">
-      <div class="skill-fill" :style="{ width: (skill.level / 5 * 100) + '%' }"></div>
+
+    <div class="skill-animation" aria-hidden="true">
+      <dotlottie-wc
+        :src="skill.animation"
+        autoplay
+        loop
+      ></dotlottie-wc>
     </div>
-    <span class="skill-level-label">{{ levelLabel }}</span>
-  </div>
+  </article>
 </template>
 
 <style scoped>
-.skill-card {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 16px;
-  padding: 1.5rem;
-  transition: all 0.3s ease;
+.skill-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(250px, 0.8fr);
+  align-items: center;
+  gap: clamp(1.25rem, 4vw, 3.5rem);
+  min-height: 285px;
+}
+
+.skill-panel {
+  min-width: 0;
+  min-height: 210px;
+  padding: clamp(1.35rem, 3vw, 2rem);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 14px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.018)),
+    rgba(255, 255, 255, 0.03);
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.24);
+  backdrop-filter: blur(12px);
   position: relative;
   overflow: hidden;
+  transition:
+    transform 0.28s ease,
+    border-color 0.28s ease,
+    background 0.28s ease,
+    box-shadow 0.28s ease;
 }
 
-.skill-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--accent);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.skill-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(255,255,255,0.15);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
-}
-
-.skill-card:hover::before {
-  opacity: 1;
-}
-
-.skill-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.8rem;
-}
-
-.skill-category {
+.skill-panel::before {
+  content: 'const service = {';
+  display: block;
+  color: #818cf8;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--accent);
-  background: rgba(255,255,255,0.05);
-  padding: 0.2rem 0.6rem;
-  border-radius: 6px;
-}
-
-.skill-stars {
-  display: flex;
-  gap: 2px;
-}
-
-.star {
-  color: rgba(255,255,255,0.15);
-  font-size: 0.9rem;
-  transition: color 0.2s;
-}
-
-.star.filled {
-  color: var(--accent);
-}
-
-.skill-name {
-  font-size: 1.15rem;
   font-weight: 700;
-  color: #f1f5f9;
-  margin: 0 0 0.5rem;
+  margin-bottom: 1.1rem;
+}
+
+.skill-panel::after {
+  content: '}';
+  position: absolute;
+  right: 1.35rem;
+  bottom: 1rem;
+  color: rgba(129, 140, 248, 0.34);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.skill-row:hover .skill-panel {
+  transform: translateY(-6px);
+  border-color: rgba(129, 140, 248, 0.28);
+  background:
+    linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(255, 255, 255, 0.026)),
+    rgba(255, 255, 255, 0.038);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
+}
+
+.skill-title {
+  color: #f8fafc;
+  font-size: clamp(1.55rem, 3vw, 2.35rem);
+  font-weight: 800;
+  line-height: 1.18;
+  letter-spacing: 0;
+  margin: 0 0 0.9rem;
+  transition: color 0.28s ease;
+}
+
+.skill-row:hover .skill-title {
+  color: #ffffff;
 }
 
 .skill-desc {
-  font-size: 0.82rem;
-  color: #64748b;
-  line-height: 1.5;
-  margin: 0 0 1rem;
-}
-
-.skill-bar {
-  height: 4px;
-  background: rgba(255,255,255,0.08);
-  border-radius: 4px;
-  overflow: hidden;
-  margin-bottom: 0.5rem;
-}
-
-.skill-fill {
-  height: 100%;
-  background: var(--accent);
-  border-radius: 4px;
-  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.skill-level-label {
-  font-size: 0.72rem;
-  color: var(--accent);
+  color: #a7b0c4;
+  font-size: clamp(0.95rem, 1.4vw, 1.05rem);
   font-weight: 600;
+  line-height: 1.75;
+  margin: 0 0 1.25rem;
+  max-width: 520px;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  list-style: none;
+  margin: 0;
+  padding: 0 1.6rem 0 0;
+}
+
+.skill-tag {
+  color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(129, 140, 248, 0.16);
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 0.5rem 0.85rem;
+  transition:
+    color 0.24s ease,
+    border-color 0.24s ease,
+    background 0.24s ease,
+    transform 0.24s ease;
+}
+
+.skill-row:hover .skill-tag {
+  color: #c7d2fe;
+  border-color: rgba(129, 140, 248, 0.34);
+  background: rgba(99, 102, 241, 0.13);
+}
+
+.skill-tag:hover {
+  transform: translateY(-2px);
+}
+
+.skill-animation {
+  display: grid;
+  place-items: center;
+  min-height: 250px;
+  transition:
+    transform 0.35s ease,
+    filter 0.35s ease;
+}
+
+.skill-row:hover .skill-animation {
+  transform: translateY(-8px) scale(1.03);
+  filter: drop-shadow(0 24px 35px rgba(99, 102, 241, 0.16));
+}
+
+.skill-animation dotlottie-wc {
+  display: block;
+  width: min(300px, 100%);
+  height: min(300px, 58vw);
+}
+
+@media (max-width: 720px) {
+  .skill-row {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+    min-height: 0;
+  }
+
+  .skill-panel {
+    min-height: 0;
+    padding: 1.2rem;
+  }
+
+  .skill-desc {
+    margin-bottom: 1.15rem;
+  }
+
+  .skill-animation {
+    min-height: 190px;
+  }
+
+  .skill-animation dotlottie-wc {
+    width: min(220px, 100%);
+    height: 190px;
+  }
 }
 </style>

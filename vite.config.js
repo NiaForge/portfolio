@@ -8,7 +8,7 @@ export default defineConfig({
     vue({
       template: {
         compilerOptions: {
-          isCustomElement: tag => tag === 'spline-viewer'
+          isCustomElement: tag => ['spline-viewer', 'dotlottie-wc'].includes(tag)
         }
       }
     })

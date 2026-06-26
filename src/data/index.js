@@ -1,73 +1,46 @@
+import lottieDevelopment from '@/assets/1.lottie?url'
+import lottieVisual from '@/assets/2.lottie?url'
+import lottieExplore from '@/assets/3.lottie?url'
+
 export const skills = [
-  // === 前端開發 (Frontend) ===
   {
     id: 1,
-    name: 'Vue.js',
-    level: 2,
-    category: 'Frontend',
-    description: 'Vue 3 Composition API、Vue Router 路由管理'
+    title: '網頁開發',
+    description: '透過程式與設計結合，打造良好的使用體驗。',
+    animation: lottieDevelopment,
+    tags: [
+      'HTML',
+      'CSS',
+      'JavaScript',
+      'Vue',
+      'RWD'
+    ]
   },
-  
+  {
+    id: 2,
+    title: '視覺創作',
+    description: '運用視覺語言，讓想法更容易被理解與感受。',
+    animation: lottieVisual,
+    tags: [
+      'Figma',
+      'Photoshop',
+      'Pr/ AE',
+      'Illustrator'
+    ]
+  },
   {
     id: 3,
-    name: 'CSS / SCSS',
-    level: 4,
-    category: 'Frontend',
-    description: 'RWD 響應式網頁、CSS 動態特效、Flexbox/Grid 佈局'
-  },
-  {
-    id: 4,
-    name: 'HTML5',
-    level: 4,
-    category: 'Frontend',
-    description: '語意化標籤運用、SEO 結構優化、DOM 樹狀結構維護'
-  },
-  // === 數位與 UI/UX 設計 (UI/UX Design) ===
-  {
-    id: 5,
-    name: 'Figma',
-    level: 4,
-    category: 'UIUX',
-    description: 'UI 介面原型設計、Component 組件庫建立與維護'
-  },
-  // === 視覺與影像處理 (Visual Design) ===
-  {
-    id: 6,
-    name: 'Photoshop',
-    level: 5,
-    category: '視覺設計',
-    description: '高級影像合成、色彩調整、商業修圖與視覺素材精細處理'
-  },
-  {
-    id: 7,
-    name: 'Illustrator',
-    level: 4,
-    category: '視覺設計',
-    description: '向量圖表繪製、視覺 Icon 設計、品牌視覺規範延伸'
-  },
-  { id: 8, 
-    name: 'Clip Studio Paint', 
-    level: 5, 
-    category: '視覺設計', 
-    description: '數位插畫創作、角色視覺設計、風格分鏡繪製與創意構圖' 
-  },
-  // === 影音多媒體 (Multimedia) ===
-  { id: 9, 
-    name: 'Pr/ AE', 
-    level: 3, 
-    category: 'media', 
-    description: '影片剪輯、動態影像企劃、基礎轉場特效與音訊流暢度控制' 
-  },
-  // === 開發工具與部署 (DevOps / Tools) ===
-  {
-    id: 10,
-    name: 'Git / GitHub',
-    level: 3,
-    category: 'Tools',
-    description: 'Git 版本控制、Git Flow 分支策略、GitHub Pages 靜態部署'
-  },
+    title: '持續探索中',
+    description: '保持學習與嘗試，探索不同領域的創作形式。',
+    animation: lottieExplore,
+    tags: [
+      'Blender',
+      'Clip Studio Paint',
+      '3D Art',
+      'AI Tools'
+    ]
+  }
 ];
-
 export const projects = [
   {
     id: 1,
