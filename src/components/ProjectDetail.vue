@@ -2,10 +2,6 @@
   <div class="project-detail" v-if="project" :style="{ '--color': project.color }">
     <div class="detail-header">
       <div class="detail-emoji">{{ project.image }}</div>
-      <div class="detail-meta">
-        <span class="detail-year">{{ project.year }}</span>
-        <span class="detail-likes">♥ {{ project.likes }}</span>
-      </div>
       <h1 class="detail-title">{{ project.title }}</h1>
       <p class="detail-subtitle">{{ project.subtitle }}</p>
     </div>
@@ -66,24 +62,6 @@ defineProps({
   filter: drop-shadow(0 8px 24px rgba(0,0,0,0.4));
   display: block;
 }
-
-.detail-meta {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 0.8rem;
-}
-
-.detail-year, .detail-likes {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.8rem;
-  background: rgba(255,255,255,0.06);
-  padding: 0.25rem 0.7rem;
-  border-radius: 6px;
-  color: #94a3b8;
-  font-weight: 500;
-}
-
-.detail-likes { color: #ec4899; }
 
 .detail-title {
   font-size: 2.8rem;

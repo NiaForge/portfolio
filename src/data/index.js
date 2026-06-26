@@ -53,9 +53,7 @@ export const projects = [
     color: '#06b6d4',
     github: 'https://github.com',
     demo: 'https://nchu-11503-qingshui-qrt-village.pages.dev/',
-    likes: 0,
     featured: false,
-    year: 2026,
   },
   {
     id: 2,
@@ -68,9 +66,7 @@ export const projects = [
     color: '#f59e0b',
     github: 'https://github.com',
     demo: 'https://demo.example.com',
-    likes: 0,
     featured: true,
-    year: 2026,
   },
   {
     id: 3,
@@ -83,9 +79,7 @@ export const projects = [
     color: '#6366f1',
     github: 'https://github.com',
     demo: 'https://demo.example.com',
-    likes: 0,
     featured: true,
-    year: 2026,
   },
   
   {
@@ -99,9 +93,7 @@ export const projects = [
     color: '#10b981',
     github: 'https://github.com',
     demo: 'https://demo.example.com',
-    likes: 0,
     featured: false,
-    year: 2026,
   },
   {
     id: 5,
@@ -114,9 +106,7 @@ export const projects = [
     color: '#8b5cf6',
     github: 'https://github.com/NiaForge/my-homework',
     demo: 'https://demo.example.com',
-    likes: 0,
     featured: true,
-    year: 2026,
   },
   {
     id: 6,
@@ -129,8 +119,6 @@ export const projects = [
     color: '#ef4444',
     github: 'https://github.com',
     demo: 'https://demo.example.com',
-    likes: 0,
     featured: false,
-    year: 2026,
   },
 ]

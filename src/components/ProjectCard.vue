@@ -24,9 +24,6 @@ const handleViewDetail = () => {
 
       <!-- <div class="project-emoji">{{ project.emoji || project.image }}</div> -->
       
-      <div class="card-meta">
-        <span class="project-year">{{ project.year }}</span>
-      </div>
     </div>
 
     <h3 class="project-title">{{ project.title }}</h3>
@@ -39,7 +36,6 @@ const handleViewDetail = () => {
     </div>
 
     <div class="card-footer">
-      <span class="likes-count">♥ {{ project.likes }}</span>
       <button class="view-btn" @click="handleViewDetail">
         查看作品 →
       </button>
@@ -145,19 +141,6 @@ const handleViewDetail = () => {
   font-size: 3.5rem;
 }
 
-.card-meta {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-.project-year {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.75rem;
-  color: #475569;
-  font-weight: 500;
-}
-
 .project-title {
   font-size: 1.25rem;
   font-weight: 700;
@@ -207,17 +190,11 @@ const handleViewDetail = () => {
 
 .card-footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   margin-top: 0.6rem;
   padding-top: 1rem;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.likes-count {
-  font-size: 0.82rem;
-  color: #ec4899;
-  font-weight: 600;
 }
 
 .view-btn {
