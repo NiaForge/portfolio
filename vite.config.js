@@ -5,7 +5,13 @@ import { fileURLToPath, URL } from 'node:url'
 export default defineConfig({
   base: '/portfolio/',
   plugins: [
-    vue()
+    vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: tag => ['spline-viewer', 'dotlottie-wc'].includes(tag)
+        }
+      }
+    })
   ],
   resolve: {
     alias: {
