@@ -583,8 +583,12 @@ onMounted(() => {
     min-height: 0;
   }
 
+  .home-hero > .section-label {
+    margin-bottom: 1.75rem;
+  }
+
   .hero-scroll-btn {
-    margin-top: 0.2rem;
+    margin-top: 2rem;
   }
 
   .featured-grid {
@@ -621,7 +625,7 @@ onMounted(() => {
     flex-direction: column;
     text-align: center;
     padding: 0;
-    gap: 1.35rem;
+    gap: 2rem;
   }
   .profile-info {
     padding-block: 0;
