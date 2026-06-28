@@ -2,9 +2,10 @@
 import { computed, onMounted, ref } from 'vue'
 import { useRouter, RouterLink } from 'vue-router'
 import ProjectCard from '@/components/ProjectCard.vue'
+import ResumeSection from '@/components/ResumeSection.vue'
 import { projects } from '@/data/index.js'
 
-const tags = ['Vue.js', 'JavaScript', 'HTML', 'CSS', 'UI/UX']
+const tags = ['持續學習', '樂於協作', '態度積極', '團隊合作', '設計思維']
 const splineViewerScriptId = 'spline-viewer-script'
 const splineViewerSrc = 'https://unpkg.com/@splinetool/viewer@1.12.98/build/spline-viewer.js'
 const splineSceneUrl = 'https://prod.spline.design/OoOVDF6-bLGyLCaS/scene.splinecode'
@@ -21,6 +22,13 @@ const goToDetail = (id) => {
 
 const scrollToServices = () => {
   servicesSection.value?.scrollIntoView({
+    behavior: 'smooth',
+    block: 'start'
+  })
+}
+
+const scrollToResume = () => {
+  document.getElementById('resume')?.scrollIntoView({
     behavior: 'smooth',
     block: 'start'
   })
@@ -50,13 +58,15 @@ onMounted(() => {
         <div class="profile-info">
           <h1 class="profile-name">李宜</h1>
           <p class="profile-title">Frontend Developer & UI Enthusiast</p>
-          <p class="profile-bio">擁有影像修圖與3D美術背景，目前持續學習前端開發與UIUX設計。</p>
+          <p class="profile-bio">喜歡把設計變成真正能互動的產品，<br>相信好的介面來自理解使用者與持續優化</p>
           <div class="profile-tags">
             <span class="tag" v-for="tag in tags" :key="tag">{{ tag }}</span>
           </div>
           <div class="profile-actions">
             <RouterLink to="/projects" class="btn btn-primary">查看作品 🎨</RouterLink>
-            <RouterLink to="/skills" class="btn btn-outline">技能清單 ⚡</RouterLink>
+            <button class="btn btn-outline" type="button" @click="scrollToResume">
+              查看履歷 ↓
+            </button>
           </div>
         </div>
 
@@ -112,6 +122,8 @@ onMounted(() => {
       </div>
       <RouterLink to="/projects" class="view-all-btn">查看全部作品 →</RouterLink>
     </div>
+
+    <ResumeSection />
   </div>
 </template>
 
@@ -383,8 +395,15 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   min-width: 0;
   padding-block: clamp(2rem, 6vw, 5rem);
+  text-align: left;
+}
+
+.profile-info > * {
+  width: 100%;
+  max-width: 480px;
 }
 
 .hero-spline {
@@ -488,13 +507,14 @@ onMounted(() => {
 .profile-bio {
   color: #94a3b8;
   line-height: 1.7;
-  margin: 0 0 1.2rem;
+  margin: 0 auto 1.2rem;
   max-width: 480px;
 }
 
 .profile-tags {
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-start;
   gap: 0.5rem;
   margin-bottom: 1.5rem;
 }
@@ -511,11 +531,13 @@ onMounted(() => {
 
 .profile-actions {
   display: flex;
+  justify-content: flex-start;
   gap: 1rem;
   flex-wrap: wrap;
 }
 
 .btn {
+  border: 0;
   padding: 0.7rem 1.5rem;
   border-radius: 12px;
   font-weight: 600;
@@ -525,6 +547,8 @@ onMounted(() => {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
+  cursor: pointer;
+  font-family: inherit;
 }
 
 .btn-primary {
@@ -539,6 +563,7 @@ onMounted(() => {
 }
 
 .btn-outline {
+  background: transparent;
   border: 1px solid rgba(99, 102, 241, 0.4);
   color: #a5b4fc;
 }
@@ -607,7 +632,7 @@ onMounted(() => {
   }
   .hero-spline { display: none; }
   .profile-name { font-size: 2rem; }
-  .profile-tags, .profile-actions { justify-content: center; }
+  .profile-tags, .profile-actions { justify-content: flex-start; }
 }
 
 @media (min-width: 641px) and (max-width: 1180px) {
@@ -634,7 +659,7 @@ onMounted(() => {
 
   .profile-tags,
   .profile-actions {
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   .services-grid {

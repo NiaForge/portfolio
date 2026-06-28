@@ -66,7 +66,7 @@ defineProps({
 }
 
 .skill-panel::before {
-  content: 'const service = {';
+  content: 'const Skills = {';
   display: block;
   color: #818cf8;
   font-family: 'JetBrains Mono', monospace;
