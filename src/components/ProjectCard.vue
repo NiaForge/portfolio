@@ -11,6 +11,14 @@ const emit = defineEmits(['view-detail'])
 const handleViewDetail = () => {
   emit('view-detail', props.project.id)
 }
+
+const isImagePath = (image = '') =>
+  /\.(avif|gif|jpe?g|png|svg|webp)$/i.test(image) || image.startsWith('http')
+
+const imageSrc = (image) => {
+  if (image.startsWith('http')) return image
+  return `${import.meta.env.BASE_URL}${image.replace(/^\//, '')}`
+}
 </script>
 
 <template>
@@ -18,7 +26,7 @@ const handleViewDetail = () => {
     <div class="card-top">
       <!-- 放入圖片區塊 -->
       <div class="card-image">
-        <img v-if="project.image.startsWith('/')" :src="project.image" :alt="project.title" />
+        <img v-if="isImagePath(project.image)" :src="imageSrc(project.image)" :alt="project.title" />
         <span v-else class="project-emoji">{{ project.image }}</span>
       </div>
 
@@ -32,7 +40,7 @@ const handleViewDetail = () => {
 
     <div class="project-tech">
       <span class="tech-tag" v-for="tech in project.tech.slice(0, 3)" :key="tech">{{ tech }}</span>
-      <span class="tech-more" v-if="project.tech.length > 3">+{{ project.tech.length - 3 }}</span>
+      <span class="tech-more" v-if="project.tech.length > 3"></span>
     </div>
 
     <div class="card-footer">

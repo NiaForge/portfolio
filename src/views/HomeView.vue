@@ -50,7 +50,7 @@ onMounted(() => {
         <div class="profile-info">
           <h1 class="profile-name">李宜</h1>
           <p class="profile-title">Frontend Developer & UI Enthusiast</p>
-          <p class="profile-bio">這個人很無聊，不知道要寫甚麼!</p>
+          <p class="profile-bio">擁有影像修圖與3D美術背景，目前持續學習前端開發與UIUX設計。</p>
           <div class="profile-tags">
             <span class="tag" v-for="tag in tags" :key="tag">{{ tag }}</span>
           </div>
@@ -71,7 +71,7 @@ onMounted(() => {
       <button
         class="hero-scroll-btn"
         type="button"
-        aria-label="前往服務項目"
+        aria-label="前往技能項目"
         @click="scrollToServices"
       >
         <span class="hero-scroll-chevron" aria-hidden="true"></span>
@@ -80,20 +80,20 @@ onMounted(() => {
 
     <section ref="servicesSection" class="home-services">
       <div class="services-inner">
-        <span class="services-label">// 服務項目</span>
-        <h2 class="services-title">SERVICES</h2>
+        <span class="services-label">// 技能項目</span>
+        <h2 class="services-title">Skills</h2>
         <div class="services-grid">
           <article class="service-card">
-            <h3>Design & Motion</h3>
-            <p>Figma / Spline / Lottie / Blender</p>
+            <h3>設計</h3>
+            <p>UI 設計 / Figma / 動態設計 / Blender</p>
           </article>
           <article class="service-card">
-            <h3>Frontend Dev</h3>
-            <p>Vue 3 / JavaScript / HTML5 & CSS3 / Git</p>
+            <h3>開發</h3>
+            <p>Vue 3 / JavaScript / HTML / CSS / Git</p>
           </article>
           <article class="service-card">
-            <h3>Soft Skills</h3>
-            <p>跨團隊溝通 / 獨立問題解決 / 團體動態視覺主導</p>
+            <h3>協作</h3>
+            <p>跨團隊溝通 / 問題解決 / 設計交付</p>
           </article>
         </div>
       </div>
