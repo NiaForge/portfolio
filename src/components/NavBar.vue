@@ -6,9 +6,9 @@ const menuOpen = ref(false)
 const isScrolled = ref(false)
 
 const navLinks = [
-  { path: '/', label: '首頁', icon: '🏠' },
-  { path: '/skills', label: '技能', icon: '⚡' },
-  { path: '/projects', label: '作品集', icon: '🎨' },
+  { path: '/', label: '首頁', icon: 'home' },
+  { path: '/skills', label: '技能', icon: 'bolt' },
+  { path: '/projects', label: '作品集', icon: 'palette' },
 ]
 
 const handleScroll = () => {
@@ -36,7 +36,7 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
       <ul class="nav-links" :class="{ open: menuOpen }">
         <li v-for="link in navLinks" :key="link.path">
           <RouterLink :to="link.path" class="nav-link" @click="menuOpen = false">
-            <span class="link-icon">{{ link.icon }}</span>
+            <span class="material-symbols-rounded link-icon" aria-hidden="true">{{ link.icon }}</span>
             {{ link.label }}
           </RouterLink>
         </li>
@@ -126,7 +126,8 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
 }
 
 .link-icon {
-  font-size: 0.85rem;
+  font-size: 1.05rem;
+  color: #818cf8;
 }
 
 .hamburger {

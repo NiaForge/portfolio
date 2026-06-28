@@ -63,9 +63,13 @@ onMounted(() => {
             <span class="tag" v-for="tag in tags" :key="tag">{{ tag }}</span>
           </div>
           <div class="profile-actions">
-            <RouterLink to="/projects" class="btn btn-primary">查看作品 🎨</RouterLink>
+            <RouterLink to="/projects" class="btn btn-primary">
+              查看作品
+              <span class="material-symbols-rounded btn-icon" aria-hidden="true">palette</span>
+            </RouterLink>
             <button class="btn btn-outline" type="button" @click="scrollToResume">
-              查看履歷 ↓
+              查看履歷
+              <span class="material-symbols-rounded btn-icon" aria-hidden="true">description</span>
             </button>
           </div>
         </div>
@@ -555,6 +559,10 @@ onMounted(() => {
   background: linear-gradient(135deg, #6366f1, #8b5cf6);
   color: white;
   box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+}
+
+.btn-icon {
+  font-size: 1.1rem;
 }
 
 .btn-primary:hover {
