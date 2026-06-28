@@ -175,25 +175,79 @@ export const projects = [
     demo: 'https://niaforge.github.io/frontend-assignments/RPS/',
     featured: false,
   },
+  // {
+  //   id: 10,
+  //   title: '天氣小卡',
+  //   subtitle: 'E-Commerce Platform',
+  //   description: '完成商品管理與總價計算，並在重新整理頁面後保留購物車內容。',
+  //   fullDescription: '這是一個以原生 JavaScript 建立的購物車練習，重點在於將使用者操作、資料狀態與畫面更新整合成完整流程。',
+  //   overview: [
+  //     '專案模擬常見的電商購物車情境，從商品操作練習 DOM 與狀態管理。',
+  //     '解決數量變動後價格不同步，以及重新整理頁面後資料流失的問題。',
+  //     '使用者可新增、修改與刪除商品，系統會即時重新計算總價。'
+  //   ],
+  //   features: ['商品新增', '修改數量', '刪除商品', '即時計算總價', 'LocalStorage 儲存', 'RWD 響應式版面'],
+  //   tech: ['HTML', 'CSS', 'JavaScript', 'DOM API', 'LocalStorage'],
+  //   responsibilities: ['UI Design', 'Frontend Development', 'DOM 互動邏輯', 'RWD'],
+  //   collaboration: '個人完成',
+  //   image: '🛒',
+  //   color: '#6366f1',
+  //   github: null,
+  //   demo: null,
+  //   featured: false,
+  // },
+]
+
+export const graphicWorks = [
   {
-    id: 10,
-    title: '天氣小卡',
-    subtitle: 'E-Commerce Platform',
-    description: '完成商品管理與總價計算，並在重新整理頁面後保留購物車內容。',
-    fullDescription: '這是一個以原生 JavaScript 建立的購物車練習，重點在於將使用者操作、資料狀態與畫面更新整合成完整流程。',
-    overview: [
-      '專案模擬常見的電商購物車情境，從商品操作練習 DOM 與狀態管理。',
-      '解決數量變動後價格不同步，以及重新整理頁面後資料流失的問題。',
-      '使用者可新增、修改與刪除商品，系統會即時重新計算總價。'
-    ],
-    features: ['商品新增', '修改數量', '刪除商品', '即時計算總價', 'LocalStorage 儲存', 'RWD 響應式版面'],
-    tech: ['HTML', 'CSS', 'JavaScript', 'DOM API', 'LocalStorage'],
-    responsibilities: ['UI Design', 'Frontend Development', 'DOM 互動邏輯', 'RWD'],
-    collaboration: '個人完成',
-    image: '🛒',
-    color: '#6366f1',
-    github: null,
-    demo: null,
-    featured: false,
+    id: 'graphic-photoshop',
+    title: 'Photoshop',
+    subtitle: 'Photo Editing & Compositing',
+    description: '影像合成、照片調色與視覺效果創作。',
+    image: 'IMG/graphic/photoshop/p01.webp',
+    color: '#31a8ff',
+    tech: ['Photoshop', 'Compositing', 'Retouching'],
+    images: [
+      'IMG/graphic/photoshop/p01.webp',
+      'IMG/graphic/photoshop/p02.webp',
+      'IMG/graphic/photoshop/p03.webp',
+      'IMG/graphic/photoshop/p05.webp',
+      'IMG/graphic/photoshop/p06.webp',
+      'IMG/graphic/photoshop/p08.webp',
+      'IMG/graphic/photoshop/p09.webp',
+      'IMG/graphic/photoshop/p10.webp'
+    ]
   },
+  {
+    id: 'graphic-illustrator',
+    title: 'Illustrator',
+    subtitle: 'Vector & Graphic Design',
+    description: '向量插畫、圖形設計與品牌視覺練習。',
+    image: 'IMG/graphic/illustrator/ai01.webp',
+    color: '#ff9a00',
+    tech: ['Illustrator', 'Vector Art', 'Layout'],
+    images: [
+      'IMG/graphic/illustrator/ai01.webp',
+      'IMG/graphic/illustrator/ai02.webp',
+      'IMG/graphic/illustrator/ai03.webp',
+      'IMG/graphic/illustrator/ai04.webp',
+      'IMG/graphic/illustrator/ai05.webp',
+      'IMG/graphic/illustrator/ai06.webp',
+      'IMG/graphic/illustrator/ai07.webp'
+    ]
+  },
+  {
+    id: 'graphic-analysis',
+    title: 'Design Analysis',
+    subtitle: 'Visual Study & Analysis',
+    description: '從構圖、色彩與資訊層級拆解設計案例。',
+    image: 'IMG/graphic/analysis/analysis01.webp',
+    color: '#a78bfa',
+    tech: ['Visual Analysis', 'Composition', 'Typography'],
+    images: [
+      'IMG/graphic/analysis/analysis01.webp',
+      'IMG/graphic/analysis/analysis02.webp',
+      'IMG/graphic/analysis/analysis03.webp'
+    ]
+  }
 ]

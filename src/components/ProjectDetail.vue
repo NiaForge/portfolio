@@ -24,7 +24,7 @@ const imageSrc = (image) => {
           :src="imageSrc(project.image)"
           :alt="`${project.title} 專案截圖`"
         />
-        <span v-else class="hero-emoji" aria-hidden="true">{{ project.image }}</span>
+        <span v-else class="material-symbols-rounded hero-placeholder" aria-hidden="true">image</span>
         <div class="hero-overlay"></div>
       </div>
 
@@ -179,8 +179,9 @@ const imageSrc = (image) => {
   pointer-events: none;
 }
 
-.hero-emoji {
+.hero-placeholder {
   font-size: clamp(5rem, 12vw, 9rem);
+  color: var(--color);
   filter: drop-shadow(0 18px 34px rgba(0, 0, 0, 0.45));
 }
 

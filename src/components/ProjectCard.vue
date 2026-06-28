@@ -3,6 +3,10 @@ const props = defineProps({
   project: {
     type: Object,
     required: true
+  },
+  actionLabel: {
+    type: String,
+    default: '查看作品'
   }
 })
 
@@ -22,16 +26,22 @@ const imageSrc = (image) => {
 </script>
 
 <template>
-  <div class="project-card" :style="{ '--color': project.color }">
+  <article
+    class="project-card"
+    :style="{ '--color': project.color }"
+    role="button"
+    tabindex="0"
+    :aria-label="`${project.title}－${actionLabel}`"
+    @click="handleViewDetail"
+    @keydown.enter.prevent="handleViewDetail"
+    @keydown.space.prevent="handleViewDetail"
+  >
     <div class="card-top">
       <!-- 放入圖片區塊 -->
       <div class="card-image">
         <img v-if="isImagePath(project.image)" :src="imageSrc(project.image)" :alt="project.title" />
-        <span v-else class="project-emoji">{{ project.image }}</span>
+        <span v-else class="material-symbols-rounded project-placeholder" aria-hidden="true">image</span>
       </div>
-
-      <!-- <div class="project-emoji">{{ project.emoji || project.image }}</div> -->
-      
     </div>
 
     <h3 class="project-title">{{ project.title }}</h3>
@@ -44,13 +54,13 @@ const imageSrc = (image) => {
     </div>
 
     <div class="card-footer">
-      <button class="view-btn" @click="handleViewDetail">
-        查看作品 →
+      <button class="view-btn" type="button" @click.stop="handleViewDetail">
+        {{ actionLabel }} →
       </button>
     </div>
 
     <div class="card-glow"></div>
-  </div>
+  </article>
 </template>
 
 <style scoped>
@@ -65,7 +75,8 @@ const imageSrc = (image) => {
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
-  cursor: default;
+  cursor: pointer;
+  outline: none;
 }
 
 .project-card::after {
@@ -84,6 +95,11 @@ const imageSrc = (image) => {
   transform: translateY(-6px);
   border-color: rgba(255, 255, 255, 0.15);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.project-card:focus-visible {
+  border-color: var(--color);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color) 25%, transparent);
 }
 
 .project-card:hover::after {
@@ -115,12 +131,6 @@ const imageSrc = (image) => {
   margin-bottom: 0.4rem;
 }
 
-/* .project-emoji {
-  font-size: 2rem;
-  line-height: 1;
-  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
-} */
-
 .card-image {
   width: 100%;
   height: 180px;
@@ -141,12 +151,13 @@ const imageSrc = (image) => {
   transform: scale(1.05);
 }
 
-.project-emoji {
+.project-placeholder {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
   font-size: 3.5rem;
+  color: var(--color);
 }
 
 .project-title {
