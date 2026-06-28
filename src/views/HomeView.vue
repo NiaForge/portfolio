@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useRouter, RouterLink } from 'vue-router'
 import ProjectCard from '@/components/ProjectCard.vue'
 import { projects } from '@/data/index.js'
@@ -11,11 +11,19 @@ const splineSceneUrl = 'https://prod.spline.design/OoOVDF6-bLGyLCaS/scene.spline
 
 
 const router = useRouter()
+const servicesSection = ref(null)
 
 const featuredProjects = computed(() => projects.filter(p => p.featured))
 
 const goToDetail = (id) => {
   router.push(`/projects/${id}`)
+}
+
+const scrollToServices = () => {
+  servicesSection.value?.scrollIntoView({
+    behavior: 'smooth',
+    block: 'start'
+  })
 }
 
 onMounted(() => {
@@ -42,7 +50,7 @@ onMounted(() => {
         <div class="profile-info">
           <h1 class="profile-name">李宜</h1>
           <p class="profile-title">Frontend Developer & UI Enthusiast</p>
-          <p class="profile-bio">這個人很無聊，不知道要寫甚麼!</p>
+          <p class="profile-bio">擁有影像修圖與3D美術背景，目前持續學習前端開發與UIUX設計。</p>
           <div class="profile-tags">
             <span class="tag" v-for="tag in tags" :key="tag">{{ tag }}</span>
           </div>
@@ -59,24 +67,33 @@ onMounted(() => {
           ></spline-viewer>
         </div>
       </div>
+
+      <button
+        class="hero-scroll-btn"
+        type="button"
+        aria-label="前往技能項目"
+        @click="scrollToServices"
+      >
+        <span class="hero-scroll-chevron" aria-hidden="true"></span>
+      </button>
     </div>
 
-    <section class="home-services">
+    <section ref="servicesSection" class="home-services">
       <div class="services-inner">
-        <span class="services-label">// 服務項目</span>
-        <h2 class="services-title">SERVICES</h2>
+        <span class="services-label">// 技能項目</span>
+        <h2 class="services-title">Skills</h2>
         <div class="services-grid">
           <article class="service-card">
-            <h3>Design & Motion</h3>
-            <p>Figma / Spline / Lottie / Blender</p>
+            <h3>設計</h3>
+            <p>UI 設計 / Figma / 動態設計 / Blender</p>
           </article>
           <article class="service-card">
-            <h3>Frontend Dev</h3>
-            <p>Vue 3 / JavaScript / HTML5 & CSS3 / Git</p>
+            <h3>開發</h3>
+            <p>Vue 3 / JavaScript / HTML / CSS / Git</p>
           </article>
           <article class="service-card">
-            <h3>Soft Skills</h3>
-            <p>跨團隊溝通 / 獨立問題解決 / 團體動態視覺主導</p>
+            <h3>協作</h3>
+            <p>跨團隊溝通 / 問題解決 / 設計交付</p>
           </article>
         </div>
       </div>
@@ -112,6 +129,61 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   align-items: stretch;
+}
+
+.hero-scroll-btn {
+  width: 3.15rem;
+  height: 3.15rem;
+  align-self: center;
+  display: grid;
+  place-items: center;
+  margin-top: clamp(0.6rem, 2vw, 1.25rem);
+  border: 1px solid rgba(129, 140, 248, 0.34);
+  border-radius: 999px;
+  background:
+    linear-gradient(135deg, rgba(99, 102, 241, 0.14), rgba(6, 182, 212, 0.06)),
+    rgba(255, 255, 255, 0.035);
+  color: #c7d2fe;
+  cursor: pointer;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(12px);
+  transition:
+    transform 0.24s ease,
+    border-color 0.24s ease,
+    background 0.24s ease,
+    box-shadow 0.24s ease;
+  animation: hero-scroll-bounce 1.8s ease-in-out infinite;
+}
+
+.hero-scroll-btn:hover {
+  transform: translateY(3px);
+  border-color: rgba(165, 180, 252, 0.62);
+  background:
+    linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(6, 182, 212, 0.1)),
+    rgba(255, 255, 255, 0.055);
+  box-shadow: 0 16px 42px rgba(99, 102, 241, 0.16);
+}
+
+.hero-scroll-btn:focus-visible {
+  outline: 2px solid #a5b4fc;
+  outline-offset: 4px;
+}
+
+.hero-scroll-chevron {
+  width: 0.85rem;
+  height: 0.85rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+}
+
+@keyframes hero-scroll-bounce {
+  0%, 100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 8px;
+  }
 }
 
 .home-featured {
@@ -280,7 +352,7 @@ onMounted(() => {
 
 .profile-card {
   display: grid;
-  grid-template-columns: minmax(320px, 0.78fr) minmax(520px, 1.22fr);
+  grid-template-columns: minmax(340px, 0.92fr) minmax(460px, 1fr);
   gap: clamp(2rem, 5vw, 5.5rem);
   align-items: stretch;
   flex: 1;
@@ -319,6 +391,9 @@ onMounted(() => {
   position: relative;
   z-index: 2;
   min-width: 0;
+  width: 100%;
+  max-width: 660px;
+  justify-self: end;
   min-height: 560px;
   height: 100%;
   border-radius: 16px;
@@ -483,6 +558,10 @@ onMounted(() => {
     min-height: 0;
   }
 
+  .hero-scroll-btn {
+    margin-top: 0.2rem;
+  }
+
   .featured-grid {
     grid-template-columns: 1fr;
   }
@@ -569,16 +648,23 @@ onMounted(() => {
 
 @media (min-width: 768px) and (max-width: 1180px) {
   .profile-card {
-    grid-template-columns: minmax(280px, 0.9fr) minmax(360px, 1.1fr);
+    grid-template-columns: minmax(280px, 0.95fr) minmax(340px, 0.95fr);
     gap: 2rem;
   }
 
   .hero-spline {
+    max-width: 520px;
     min-height: 460px;
   }
 
   .services-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-scroll-btn {
+    animation: none;
   }
 }
 </style>

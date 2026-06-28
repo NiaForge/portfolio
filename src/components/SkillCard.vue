@@ -27,6 +27,8 @@ defineProps({
     <div class="skill-animation" aria-hidden="true">
       <dotlottie-wc
         :src="skill.animation"
+        speed="1"
+        mode="forward"
         autoplay
         loop
       ></dotlottie-wc>

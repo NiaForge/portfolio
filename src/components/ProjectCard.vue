@@ -11,6 +11,14 @@ const emit = defineEmits(['view-detail'])
 const handleViewDetail = () => {
   emit('view-detail', props.project.id)
 }
+
+const isImagePath = (image = '') =>
+  /\.(avif|gif|jpe?g|png|svg|webp)$/i.test(image) || image.startsWith('http')
+
+const imageSrc = (image) => {
+  if (image.startsWith('http')) return image
+  return `${import.meta.env.BASE_URL}${image.replace(/^\//, '')}`
+}
 </script>
 
 <template>
@@ -18,15 +26,12 @@ const handleViewDetail = () => {
     <div class="card-top">
       <!-- 放入圖片區塊 -->
       <div class="card-image">
-        <img v-if="project.image.startsWith('/')" :src="project.image" :alt="project.title" />
+        <img v-if="isImagePath(project.image)" :src="imageSrc(project.image)" :alt="project.title" />
         <span v-else class="project-emoji">{{ project.image }}</span>
       </div>
 
       <!-- <div class="project-emoji">{{ project.emoji || project.image }}</div> -->
       
-      <div class="card-meta">
-        <span class="project-year">{{ project.year }}</span>
-      </div>
     </div>
 
     <h3 class="project-title">{{ project.title }}</h3>
@@ -35,11 +40,10 @@ const handleViewDetail = () => {
 
     <div class="project-tech">
       <span class="tech-tag" v-for="tech in project.tech.slice(0, 3)" :key="tech">{{ tech }}</span>
-      <span class="tech-more" v-if="project.tech.length > 3">+{{ project.tech.length - 3 }}</span>
+      <span class="tech-more" v-if="project.tech.length > 3"></span>
     </div>
 
     <div class="card-footer">
-      <span class="likes-count">♥ {{ project.likes }}</span>
       <button class="view-btn" @click="handleViewDetail">
         查看作品 →
       </button>
@@ -145,19 +149,6 @@ const handleViewDetail = () => {
   font-size: 3.5rem;
 }
 
-.card-meta {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-.project-year {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.75rem;
-  color: #475569;
-  font-weight: 500;
-}
-
 .project-title {
   font-size: 1.25rem;
   font-weight: 700;
@@ -207,17 +198,11 @@ const handleViewDetail = () => {
 
 .card-footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   margin-top: 0.6rem;
   padding-top: 1rem;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.likes-count {
-  font-size: 0.82rem;
-  color: #ec4899;
-  font-weight: 600;
 }
 
 .view-btn {

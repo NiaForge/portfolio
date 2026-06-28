@@ -22,6 +22,14 @@ const navigate = (dir) => {
   const target = dir === -1 ? prevProject.value : nextProject.value
   if (target) router.push(`/projects/${target.id}`)
 }
+
+const isImagePath = (image = '') =>
+  /\.(avif|gif|jpe?g|png|svg|webp)$/i.test(image) || image.startsWith('http')
+
+const imageSrc = (image) => {
+  if (image.startsWith('http')) return image
+  return `${import.meta.env.BASE_URL}${image.replace(/^\//, '')}`
+}
 </script>
 
 <template>
@@ -46,7 +54,10 @@ const navigate = (dir) => {
             :to="`/projects/${p.id}`"
             class="sidebar-item"
           >
-            <span class="sidebar-emoji">{{ p.image }}</span>
+            <span class="sidebar-visual">
+              <img v-if="isImagePath(p.image)" :src="imageSrc(p.image)" :alt="p.title" />
+              <span v-else>{{ p.image }}</span>
+            </span>
             <div>
               <div class="sidebar-name">{{ p.title }}</div>
               <div class="sidebar-sub">{{ p.subtitle }}</div>
@@ -161,9 +172,22 @@ const navigate = (dir) => {
   transform: translateX(3px);
 }
 
-.sidebar-emoji {
+.sidebar-visual {
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  overflow: hidden;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 8px;
   font-size: 1.4rem;
   flex-shrink: 0;
+}
+
+.sidebar-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .sidebar-name {
